@@ -49,17 +49,18 @@
                 <li class="nav-item">
                   <a class="nav-link" href="gallery.html"> Gallery </a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="sign up.html">Account</a>
+                <li class="nav-item active">
+                  <a class="nav-link" href="sign-up.php">Account</a>
                 </li>
                 <li class="nav-item ">
                   <a class="nav-link" href="buy.html">Buy now</a>
 
+
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item ">
                   <a class="nav-link" href="loginadmini.html">Administrator</a>
-
-
+  
+  
                 </li>
               </ul>
 
@@ -76,7 +77,7 @@
       <div class="container">
         <div class="heading_container justify-content-center">
           <h2 class="">
-            Administrator 
+            Log In
           </h2>
         </div>
         <div class="container">
@@ -86,7 +87,7 @@
                 <div>
 
                  
-                  <input type="text" placeholder="code administrator" />
+                  <input type="email" placeholder="Email" />
                 </div>
                 <div>
                   
@@ -101,10 +102,44 @@
                   </button>
                 </div>
               </form>
-              <p class="mt-3 text-center">Not an Administrator ?<a href="login.html" > click here</a></p>
+              <p class="mt-3 text-center">Don't have an account? <a href="sign-up.php" >Sign up</a></p>
+              <p class="mt-3 text-center">Log in as Administrator <a href="loginadmini.html" >Log in</a></p>
             </div>
           </div>
         </div>
       </div>
-    </section> 
+    </section>
+    <script>
+      
+      function login() {
+        let email = document.getElementById('email').value;
+        let password = document.getElementById('password').value;
+
+        event.preventDefault();
+
+        let http = new XMLHttpRequest();
+
+        let url = "login-redirect.php"; 
+        let params = "email=" + email + "&password=" + password;
+
+        http.open('POST', url, true);
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        http.onreadystatechange = function() {
+          if (http.readyState == 4 && http.status == 200) {
+            window.location.href = "./PostLogin.html";
+          } else if (http.status == 401){
+              document.getElementById('feedback').innerHTML = "Incorrect Password";
+          } else if (http.status == 404){
+            document.getElementById('feedback').innerHTML = "Account not found";
+
+          }
+        }
+        http.send(params);
+      }
+    </script>
+</body>
+
+</html>
+      
       
